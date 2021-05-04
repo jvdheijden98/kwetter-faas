@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 //import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { withStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
+import { AppBar, Box, Button, Toolbar, Typography } from "@material-ui/core";
+import { Link } from "react-router-dom";
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import NavigationDrawer from './NavigationDrawer';
@@ -20,8 +18,10 @@ const styles = (theme) => ({
     },
     menuButton: {
         marginRight: theme.spacing(2),
+        color: "inherit"
     },
     title: {
+        color: "inherit",
         align: 'left',
         flexGrow: 1,
         justifyContent: 'flex-start',
@@ -52,15 +52,25 @@ class NavigationBar extends Component{
             <div className={classes.root}>
               <AppBar style={{zIndex: 9000}} position="sticky">
                 <Toolbar className={classes.toolbar}>
-                    <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" onClick={this.toggleMenu}>
+                    <IconButton edge="start" className={classes.menuButton} aria-label="menu" onClick={this.toggleMenu}>
                         <MenuIcon />
                     </IconButton>
-                    <Typography align='left' className={classes.title} >
+                    <Button align='left' className={classes.title} component={Link} to={'/home'}>
                         Home
-                    </Typography>
-                    <Button color="inherit" className={classes.loginButton}>
-                        Login
                     </Button>
+                    {!window.sessionStorage.getItem("token") && (
+                        <>
+                            <Box>
+                                <Button className={classes.menuButton} component={Link} to={'/login'}>
+                                    Login
+                                </Button>
+                                <Button className={classes.menuButton} component={Link} to={'/register'}>
+                                    Registreer
+                                </Button>
+                            </Box>
+                        </>
+                    )}
+
                 </Toolbar>
               </AppBar>
               <NavigationDrawer open={menuOpen} close={this.toggleMenu} />

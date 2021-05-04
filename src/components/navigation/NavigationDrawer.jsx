@@ -55,16 +55,14 @@ const styles = {
   
       return (
         <Drawer classes={{ paper: classes.drawer }} variant="temporary" open={open} onClose={() => { close(); }} anchor="left">
-            <Link to="/">
-              <ListItem>
+              <ListItem button component={Link} to={"/home"}>
                 <ListItemIcon>
                   <HomeIcon />
                 </ListItemIcon>
-                <ListItemText>
+                <ListItemText className={classes.menuItem} >
                   Home
                 </ListItemText>
               </ListItem>
-            </Link>
         </Drawer>
       );
     }
