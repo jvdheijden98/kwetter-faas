@@ -6,17 +6,15 @@ import StartPage from './pages/StartPage';
 import RegisterPage from './pages/RegisterPage';
 import LoginPage from './pages/LoginPage';
 import NavigationBar from './components/navigation/NavigationBar';
-//import NavigationDrawer from './components/navigation/NavigationDrawer';
+import NavigationDrawer from './components/navigation/NavigationDrawer';
 
 function App() {
   return (    
-    <div data-testid="testId" className="App"> 
-    <NavigationBar/>
-{/*     <NavigationDrawer/> */}
-
-
-
     <Router>
+      <div data-testid="testId" className="App"> 
+      <NavigationBar/>
+      <NavigationDrawer/>
+
       <Switch>
       <Route exact path="/home" component={HomePage}/>
       <Route exact path="/">
@@ -27,8 +25,9 @@ function App() {
       <Route exact path="/overview" component={StartPage}/>
       <Route exact path="/profile" component={ProfilePage}/>
       </Switch>
-    </Router>    
-    </div>
+
+      </div>
+    </Router>        
   );
 }
 
