@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-//import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { withStyles } from '@material-ui/core/styles';
-import { AppBar, Box, Button, Toolbar, Typography } from "@material-ui/core";
+import { AppBar, Box, Button, Toolbar } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import NavigationDrawer from './NavigationDrawer';
-//import { ArrowLeftTwoTone } from '@material-ui/icons';
+import { Route , withRouter} from 'react-router-dom';
 
 const styles = (theme) => ({
     root: {
@@ -32,6 +31,7 @@ const styles = (theme) => ({
 });
 
 class NavigationBar extends Component{
+    
     constructor(props){
         super(props);
             
@@ -42,6 +42,11 @@ class NavigationBar extends Component{
 
     toggleMenu = () => {
         this.setState((wasMenuOpen) => ({ menuOpen: !wasMenuOpen.menuOpen}))
+    }
+
+    logout = () => {
+        window.sessionStorage.removeItem("token");
+        this.props.history.push("/");
     }
 
     render(){
@@ -70,7 +75,15 @@ class NavigationBar extends Component{
                             </Box>
                         </>
                     )}
-
+                    {window.sessionStorage.getItem("token") && (
+                        <>
+                            <Box>
+                                <Button className={classes.menuButton} onClick={this.logout}>
+                                    Uitloggen
+                                </Button>
+                            </Box>
+                        </>
+                    )}
                 </Toolbar>
               </AppBar>
               <NavigationDrawer open={menuOpen} close={this.toggleMenu} />
@@ -79,4 +92,4 @@ class NavigationBar extends Component{
     }
 }
 
-export default withStyles(styles)(NavigationBar);
+export default withRouter(withStyles(styles)(NavigationBar));
