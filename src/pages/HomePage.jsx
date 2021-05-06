@@ -23,14 +23,14 @@ class HomePage extends Component{
 
     }
 
-    componentDidUpdate(){
+/*     componentDidUpdate(){
         fetchTimeline().then(response => {
             this.setState({
                 kweets : response
             })
         })
     }
-
+ */
 
     render(){
 
@@ -39,11 +39,14 @@ class HomePage extends Component{
                 <Typography>
                     HomePage Here.
                 </Typography>
-                {
+                {                    
                     this.state.kweets.map((item, index) =>{
-                        return <KweetCard message={item.message}/>                            
+                        //console.log(this.state.kweets)
+                        //console.log(item.kweetID)
+                        return <KweetCard key={item.kweetID} username={item.username} message={item.message} likes={item.likes} timeCreated={item.timeCreated}/>                            
                     })
                 }
+                
             </Container>
         )
     }

@@ -26,26 +26,49 @@ class KweetCard extends Component {
     super(props)
 
     this.state = {
-      message: '',
     }
 }
 
+  calculateDate(){
+    let unix_timestamp = this.props.timeCreated
+    console.log(this.props.timeCreated) // Corect
+    // Create a new JavaScript Date object based on the timestamp
+    var date = new Date(unix_timestamp);
+    console.log(date) // incorrect
+
+    var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    var year = date.getFullYear();
+    var month = months[date.getMonth()];
+    var day = date.getDate();
+
+    // Hours part from the timestamp
+    var hours = date.getHours();
+
+    // Minutes part from the timestamp
+    var minutes = "0" + date.getMinutes();
+
+    // Will display time in 10:30:23 format
+    var formattedTime = year + " " + month + " " + " " + day + " " + hours + ':' + minutes.substr(-2);
+    return formattedTime;
+  }
+
   render (){
     const { classes } = this.props;
+    
     return (
-      <Card className={classes.root}>
+      <Card style={{marginTop: "20px"}} className={classes.root}>
         <CardHeader
           avatar={
             <Avatar aria-label="recipe" className={classes.avatar}>
               R
             </Avatar>
           }
-          title="Username here"
-          subheader="September 14, 2016"
+          title={this.props.username}
+          subheader={this.calculateDate()}
         />
         <CardContent>
           <Typography variant="body2" color="textSecondary" component="p">
-            Placeholder text
+            {this.props.message}
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
