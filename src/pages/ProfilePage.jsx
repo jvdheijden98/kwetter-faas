@@ -1,6 +1,7 @@
 import { Container, Typography } from '@material-ui/core';
 import React, { Component } from 'react';
 
+// Subscribed Kweets + Profile zooi 
 class ProfilePage extends Component{
 
     render(){
