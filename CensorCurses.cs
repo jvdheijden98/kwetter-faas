@@ -27,11 +27,16 @@ namespace Kwetter.Functions
         };
 
         [Function("CensorCurses")]
-        public static async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post")] HttpRequestData request, FunctionContext executionContext)
+        public static async Task<HttpResponseData> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post")] HttpRequestData request, FunctionContext executionContext)
         {
+            var logger = executionContext.GetLogger("CensorCurses");
+            
+
             string requestBody = await new StreamReader(request.Body).ReadToEndAsync();
-            dynamic kweetObject = JsonConvert.DeserializeObject(requestBody);   
-            string kweetMessage = kweetObject;         
+            //dynamic kweetObject = JsonConvert.DeserializeObject(requestBody);   
+            string kweetMessage = requestBody;         
+
+            logger.LogInformation("C# HTTP trigger with body: " + kweetMessage);
 
             Regex regex = new Regex(
                 @"\b("
@@ -43,7 +48,11 @@ namespace Kwetter.Functions
                 return new string('*', match.Length);
             });
 
-            return new OkObjectResult(censoredKweet);
+            HttpResponseData response = request.CreateResponse(HttpStatusCode.OK);
+            response.Headers.Add("Content-Type", "text/plain; charset=utf-8");
+            response.WriteString(censoredKweet);
+
+            return response;
         }
 
 /*         [Function("CensorCurses")]
