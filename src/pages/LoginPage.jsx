@@ -47,7 +47,7 @@ class LoginPage extends Component{
 
         login(this.state.username, this.state.password)
             .then((data) => {
-                console.log(data);                
+                // console.log(data);                
                 if(data.token) {
                     window.sessionStorage.setItem("token", data.token);
                     this.setState({
