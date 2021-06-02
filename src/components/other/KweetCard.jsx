@@ -10,6 +10,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
+import moment from 'moment';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,29 +30,6 @@ class KweetCard extends Component {
     }
 }
 
-  calculateDate(){
-    let unix_timestamp = this.props.timeCreated
-    console.log(this.props.timeCreated) // Corect
-    // Create a new JavaScript Date object based on the timestamp
-    var date = new Date(unix_timestamp);
-    console.log(date) // incorrect
-
-    var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-    var year = date.getFullYear();
-    var month = months[date.getMonth()];
-    var day = date.getDate();
-
-    // Hours part from the timestamp
-    var hours = date.getHours();
-
-    // Minutes part from the timestamp
-    var minutes = "0" + date.getMinutes();
-
-    // Will display time in 10:30:23 format
-    var formattedTime = year + " " + month + " " + " " + day + " " + hours + ':' + minutes.substr(-2);
-    return formattedTime;
-  }
-
   render (){
     const { classes } = this.props;
     
@@ -64,7 +42,7 @@ class KweetCard extends Component {
             </Avatar>
           }
           title={this.props.username}
-          subheader={this.calculateDate()}
+          subheader={this.props.timeCreated}
         />
         <CardContent>
           <Typography variant="body2" color="textSecondary" component="p">

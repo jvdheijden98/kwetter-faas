@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import NavigationDrawer from './NavigationDrawer';
-import { Route , withRouter} from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 const styles = (theme) => ({
     root: {

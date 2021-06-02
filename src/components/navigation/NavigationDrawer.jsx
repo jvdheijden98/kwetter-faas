@@ -34,7 +34,7 @@ const styles = {
     }
   
     render() {
-      const { classes, open, close, t } = this.props;
+      const { classes, open, close } = this.props;
   
       return (
         <Drawer classes={{ paper: classes.drawer }} variant="temporary" open={open} onClose={() => { close(); }} anchor="left">
