@@ -24,6 +24,7 @@ namespace Kwetter.Functions
             "cock",
             "bitch",
             "damn",
+            "Hell",
         };
 
         [Function("CensorCurses")]
