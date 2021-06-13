@@ -23,7 +23,7 @@ function App() {
       <Route exact path="/login" component={LoginPage}/>
       <Route exact path="/register" component={RegisterPage}/>
       <Route exact path="/overview" component={StartPage}/>
-      <Route exact path="/profile" component={ProfilePage}/>
+      <Route exact path="/profile/:username" component={ProfilePage}/>
       </Switch>
 
       </div>

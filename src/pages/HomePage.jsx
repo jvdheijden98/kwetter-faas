@@ -1,4 +1,4 @@
-import { Button, Box, Container, TextField, Typography, Paper, List, Card } from "@material-ui/core";
+import { Button, Box, Container, TextField, Typography, Paper, Card } from "@material-ui/core";
 import React, { Component } from 'react';
 import { fetchTimeline } from '../APIs/Timeline/Timeline';
 import KweetCard from '../components/other/KweetCard';
