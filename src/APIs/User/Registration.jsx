@@ -2,6 +2,8 @@
 // Controller /api/authentication
 
 // POST to /api/registration
+const host = process.env.REACT_APP_HOST;
+
 export async function registerUser(username, email, password) {
 
     const requestOptions = {
@@ -16,7 +18,7 @@ export async function registerUser(username, email, password) {
         })
     };
 
-    return fetch('https://localhost:5021/api/authentication/register', requestOptions)
+    return fetch(host + '/api/authentication/register', requestOptions)
         .then(response => response.json())
         .then(data => {
             return data

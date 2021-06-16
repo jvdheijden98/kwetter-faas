@@ -2,13 +2,15 @@
 // Controller /api/authentication/
 
 // POST to /api/timeline/read
+const host = process.env.REACT_APP_HOST;
+
 export async function fetchTimeline() {
 
     const requestOptions = {
         method: 'GET',
     };
 
-    return fetch('https://localhost:5021/api/timeline/read', requestOptions)
+    return fetch(host + '/api/timeline/read', requestOptions)
         .then(response => response.json())
         .then(data => {
             return data

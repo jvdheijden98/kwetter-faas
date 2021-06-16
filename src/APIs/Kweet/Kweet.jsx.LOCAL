@@ -2,8 +2,6 @@
 // Controller /api/kweet/
 
 // POST to /api/kweet/create
-const host = process.env.REACT_APP_HOST;
-
 export async function create(message) {
 
     const requestOptions = {
@@ -17,7 +15,7 @@ export async function create(message) {
         })
     };
 
-    return fetch(host + '/api/kweet/create', requestOptions)
+    return fetch('https://localhost:5021/api/kweet/create', requestOptions)
         .then(response => response.json())
         .then(data => {
             return data
