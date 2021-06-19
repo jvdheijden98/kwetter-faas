@@ -1,7 +1,8 @@
-import { Container, Typography } from '@material-ui/core';
+import { Button, Container, Typography } from '@material-ui/core';
 import React, { Component } from 'react';
 import { withRouter } from "react-router";
 import { read } from '../APIs/Profile/profile';
+import { deleteUser } from '../APIs/User/Delete';
 
 // Subscribed Kweets + Profile zooi 
 class ProfilePage extends Component{
@@ -34,6 +35,8 @@ class ProfilePage extends Component{
             username : this.props.match.params.username
         })
         console.log("after state set username: " + this.state.username) // username: empty */
+
+        // TODO Capitalization bug
         const uname = this.props.match.params.username;
         console.log(uname)
         read(uname)
@@ -45,6 +48,17 @@ class ProfilePage extends Component{
             });
         });
     }
+
+    forgetMe = (event) => {
+        event.preventDefault();
+        deleteUser(this.state.newKweet)
+        .then((data) => {
+            // Iets met status of error message
+        });
+        this.props.history.push("/");
+        this.setState({});
+    }
+
 
     render(){
         //console.log(this.state.username) // 1e keer empty? 2e keer Sebastiaan2?
@@ -60,6 +74,9 @@ class ProfilePage extends Component{
                 <Typography>
                     Biography: {this.state.biography}
                 </Typography>
+                <Button variant="contained" color="secondary" fullWidth onClick={this.forgetMe}>
+                    Forget Me
+                </Button>
             </Container>
         )
     }
