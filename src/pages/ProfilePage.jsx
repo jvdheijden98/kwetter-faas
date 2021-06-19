@@ -55,7 +55,8 @@ class ProfilePage extends Component{
         .then((data) => {
             // Iets met status of error message
         });
-        this.props.history.push("/");
+        // Disabled for demo
+        //this.props.history.push("/");
         this.setState({});
     }
 
