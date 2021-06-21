@@ -5,6 +5,7 @@ import KweetCard from '../components/other/KweetCard';
 import { withStyles } from '@material-ui/core/styles';
 import moment from 'moment'
 import { create } from '../APIs/Kweet/Kweet';
+import _ from 'lodash';
 
 const style = (theme) => ({
     textfield: {
@@ -25,26 +26,42 @@ class HomePage extends Component{
     
         this.state = {
           kweets : [],
-          newKweet: ""
+          newKweet: ''
         }
     }
 
     componentDidMount() {
         fetchTimeline().then(response => {
             
-            let i;
-            for(i = 0; i < response.length; i++){
-                let utcSeconds = response[i].timeCreated;
-                let date = new Date(0);
-                date.setUTCSeconds(utcSeconds);
-
-                let formattedDate = moment(date).format('HH:mm - dddd do [of] MMMM YYYY')
-                response[i].timeCreated = formattedDate;
+            // let i;
+            // console.log(response)
+            // const kweetcount = response.length || 0;
+            console.log("Component did Mount")
+            if(response.length){
+                const tweets = _.map(response, (tweet) => {
+                    let utcSeconds = tweet.timeCreated;
+                    let date = new Date(0);
+                    date.setUTCSeconds(utcSeconds);
+    
+                    let formattedDate = moment(date).format('HH:mm - dddd do [of] MMMM YYYY')
+                    tweet.timeCreated = formattedDate;
+                    return tweet;
+                })
+                this.setState({
+                    kweets : tweets
+                })
             }
+            
+            // for(i = 0; i < kweetcount; i++){
+            //     let utcSeconds = response[i].timeCreated;
+            //     let date = new Date(0);
+            //     date.setUTCSeconds(utcSeconds);
 
-            this.setState({
-                kweets : response
-            })
+            //     let formattedDate = moment(date).format('HH:mm - dddd do [of] MMMM YYYY')
+            //     response[i].timeCreated = formattedDate;
+            // }
+
+
         })
 
     }
@@ -57,11 +74,11 @@ class HomePage extends Component{
         })
     }
  */
-    handleKweetChange = event => {
-        this.setState({            
+    handleKweetChange = (event) => {
+        this.setState({
             newKweet : event.target.value
-        })
-    }
+        });
+    };
 
     handleSubmitKweet = (event) => {
         event.preventDefault();
@@ -111,7 +128,8 @@ class HomePage extends Component{
                 )}
 
                 {                    
-                    this.state.kweets.map((item, index) =>{                          
+                    this.state.kweets.map((item, index) =>{       
+                      
                         return React.createElement(KweetCard, {key:item.kweetID, username:item.username, message:item.message, like:item.likes, timeCreated:item.timeCreated})
                     })
                 }
